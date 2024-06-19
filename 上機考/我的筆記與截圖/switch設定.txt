@@ -1,0 +1,141 @@
+enable
+configure terminal
+hostname ALswitch-4
+enable secret Ci$co
+line console 0
+password letmein
+login
+exec-timeout 0
+exit
+line vty 0 15
+password letmein
+login
+exit
+service password-encryption
+int vlan 99
+ip address 172.16.99.7 255.255.255.0
+no shutdown 
+exit
+ip default-gateway 172.16.99.1
+exit
+copy running-config startup-config 
+
+
+
+configure terminal 
+vlan 10
+name Staff
+vlan 20
+name Sales
+vlan 30
+name Production
+vlan 40
+name Accounting
+vlan 50
+name Design
+vlan 99
+name Management
+exit
+interface range FastEthernet 0/5-8
+switchport mode access 
+switchport access vlan 10
+exit
+interface range FastEthernet 0/9-12
+switchport mode access 
+switchport access vlan 50
+exit
+interface range FastEthernet 0/13-15
+switchport mode access 
+switchport access vlan 20
+exit
+interface range FastEthernet 0/16-20
+switchport mode access 
+switchport access vlan 40
+exit
+interface range FastEthernet 0/21-24
+switchport mode access 
+switchport access vlan 99
+exit
+exit
+
+
+configure terminal 
+interface range GigabitEthernet 0/1-2
+(switchport trunk encapsulation dot1q)
+switchport mode trunk 
+(switchport nonegotiate)
+switchport trunk native vlan 99
+switchport trunk allowed vlan 1,10,20,30,40,50,99
+exit
+interface range FastEthernet 0/1-4
+(switchport trunk encapsulation dot1q)
+switchport mode trunk 
+(switchport nonegotiate)
+switchport trunk native vlan 99
+switchport trunk allowed vlan 1,10,20,30,40,50,99
+exit
+
+
+
+configure terminal 
+vtp domain NCTUvtp
+vtp version 2
+
+configure terminal 
+vtp mode client
+vtp domain NCTUvtp
+vtp version 2
+
+
+
+
+configure terminal
+interface range FastEthernet 0/9-12
+switchport mode access
+switchport port-security maximum 3
+switchport port-security
+switchport port-security mac-address sticky 
+(switchport port-security violation protect)
+
+
+
+
+
+
+
+layer 3 switch :
+
+
+configure terminal 
+vlan 10
+name Staff
+vlan 20
+name Sales
+vlan 30
+name Production
+vlan 40
+name Accounting
+vlan 50
+name Design
+vlan 99
+name Management
+exit
+int vlan 10
+ip address xxxxxxxx  xxxxxxx
+exit
+int vlan 20
+ip address xxxxxxxx  xxxxxxx
+exit
+int vlan 30
+ip address xxxxxxxx  xxxxxxx
+exit
+int vlan 40
+ip address xxxxxxxx  xxxxxxx
+exit
+int vlan 50
+ip address xxxxxxxx  xxxxxxx
+exit
+int vlan 99
+ip address xxxxxxxx  xxxxxxx
+exit
+ip routing   ->activate layer 3 function
